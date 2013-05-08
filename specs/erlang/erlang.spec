@@ -7,7 +7,7 @@
 
 Name: erlang
 Version: R14B02
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: General-purpose programming language and runtime environment
 License: ERPL
 Group: Development/Languages
@@ -32,8 +32,6 @@ BuildRequires: tcl-devel
 BuildRequires: tk-devel
 BuildRequires: unixODBC-devel
 BuildRequires: wxGTK-devel
-
-Requires: tk
 
 # Added virtual Provides for each erlang module
 Provides: erlang-appmon = %{version}-%{release}
@@ -93,6 +91,15 @@ environment. Erlang has built-in support for concurrency, distribution
 and fault tolerance. Erlang is used in several large telecommunication
 systems from Ericsson.
 
+%package gui
+Requires: tk
+Provides: erlang-gs = %{version}-%{release}
+Summary: Erlang GUI extensions (WX and GL)
+Group: Development/Languages
+
+%description gui
+GUI extensions (WX and GL) for erlang
+
 %package doc
 Summary: Erlang documentation
 Group: Development/Languages
@@ -151,11 +158,18 @@ sed -i "s|%{buildroot}||" erts*/bin/{erl,start} releases/RELEASES bin/{erl,start
 %clean
 %{__rm} -rf %{buildroot}
 
+%files gui
+%defattr(-, root, root, 0644)
+%{_libdir}/erlang/lib/wx-*
+%{_libdir}/erlang/lib/gs-*
+
 %files
 %defattr(-, root, root, 0755)
 %doc AUTHORS EPLICENCE INSTALL* README*
 %{_bindir}/*
 %{_libdir}/erlang
+%exclude %{_libdir}/erlang/lib/wx-*
+%exclude %{_libdir}/erlang/lib/gs-*
 
 %files doc
 %defattr(-, root, root, 0755)
@@ -165,6 +179,9 @@ sed -i "s|%{buildroot}||" erts*/bin/{erl,start} releases/RELEASES bin/{erl,start
 %{_libdir}/erlang/Install -minimal %{_libdir}/erlang &>/dev/null
 
 %changelog
+* Tue May 7 2013 Mikhail T. <mi+github@aldan.algebra.com>
+- Break the GUI-related pieces into "gui" subpackage
+
 * Thu Mar 31 2011 Steve Huff <shuff@vecna.org> - R14B02-1
 - Updated to version R14B02.
 - HiPE and the halfword emulator cannot currently coexist.
