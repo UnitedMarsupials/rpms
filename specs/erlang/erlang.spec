@@ -53,7 +53,6 @@ Provides: erlang-edoc = %{version}-%{release}
 Provides: erlang-erts = %{version}-%{release}
 Provides: erlang-et = %{version}-%{release}
 Provides: erlang-eunit = %{version}-%{release}
-Provides: erlang-gs = %{version}-%{release}
 Provides: erlang-hipe = %{version}-%{release}
 Provides: erlang-ic = %{version}-%{release}
 Provides: erlang-inets = %{version}-%{release}
